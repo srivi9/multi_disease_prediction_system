@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Disease Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landingpage.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Multiple Disease Prediction System</div>
+        <ul>
+            <li><a href="{{ url_for('admin_loginpage') }}">Admin</a></li>
+            <li><a href="{{ url_for('patient_loginpage') }}">Patient</a></li>
+            <li><a href="{{ url_for('doctor_loginpage') }}">Doctor</a></li>
+        </ul>
+    </nav>
+    
+    <section class="carousel">
+        <div class="slides">
+            <img src="{{ url_for('static', filename='images/scan.jpg') }}" class="slide" alt="Hospital Image 2">>
+            <img src="{{ url_for('static', filename='images/scan2.jpg') }}" class="slide" alt="Hospital Image 2">>
+            <img src="{{ url_for('static', filename='images/istockphoto-1352553853-612x612.jpg') }}" class="slide" alt="Hospital Image 2">>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 AI-powered-Multi Disease Prediction System | Contact: srividyananduri@healthcare.com | Phone: +267 123 4567</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

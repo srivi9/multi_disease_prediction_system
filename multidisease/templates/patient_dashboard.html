@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='patientdashboard.css') }}">
+<div class="container">
+    <h1>Welcome, {{ username }}</h1>
+    <p>Welcome to your Dashboard</p>
+    <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+    <hr>
+
+    <!-- Predictions Button -->
+    <button id="predictionsButton" class="btn btn-primary">Predictions</button>
+
+    <!-- Prediction Navigation (Initially Hidden) -->
+    <div id="predictionNav" class="prediction-nav">
+        <a href="{{ url_for('heart_disease') }}">Heart Disease</a>
+        <button class="nav-btn" id="diabetesBtn">Diabetes</button>
+        <button class="nav-btn" id="parkinsonsBtn">Parkinson's Disease</button>
+    </div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Show/hide the prediction navigation on button click
+    document.getElementById('predictionsButton').addEventListener('click', function() {
+        var nav = document.getElementById('predictionNav');
+        nav.style.display = nav.style.display === 'none' || nav.style.display === '' ? 'block' : 'none';
+    });
+
+    document.getElementById('diabetesBtn').addEventListener('click', function() {
+        alert('Diabetes prediction clicked');
+        // You can redirect or trigger any action related to diabetes here
+    });
+
+    document.getElementById('parkinsonsBtn').addEventListener('click', function() {
+        alert("Parkinson's Disease prediction clicked");
+        // You can redirect or trigger any action related to Parkinson's Disease here
+    });
+</script>
+
+{% endblock %}

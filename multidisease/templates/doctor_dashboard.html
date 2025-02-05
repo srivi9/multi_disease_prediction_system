@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <h1>Welcome, {{ username }}</h1>
+    <p>Welcome to your Dashboard</p>
+    <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+
+    <hr>
+
+    <!-- Prediction Form -->
+    <h3>Enter Patient Data for Prediction</h3>
+    <form action="{{ url_for('predict') }}" method="post">
+        <input type="text" name="feature1" placeholder="Age" required>
+        <input type="text" name="feature2" placeholder="Sex" required>
+        <input type="text" name="feature3" placeholder="Chest Pain Type" required>
+        <input type="text" name="feature4" placeholder="Resting Blood Pressure" required>
+        <input type="text" name="feature5" placeholder="Cholesterol" required>
+        <input type="text" name="feature6" placeholder="Fasting Blood Sugar" required>
+        <input type="text" name="feature7" placeholder="Resting ECG Results" required>
+        <input type="text" name="feature8" placeholder="Max Heart Rate Achieved" required>
+        <input type="text" name="feature9" placeholder="Exercise Induced Angina" required>
+        <input type="text" name="feature10" placeholder="ST Depression" required>
+        <input type="text" name="feature11" placeholder="Slope of Peak Exercise ST Segment" required>
+        <input type="text" name="feature12" placeholder="Number of Major Vessels Colored" required>
+        <input type="text" name="feature13" placeholder="Thalassemia" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Display Prediction Result -->
+    {% if result %}
+        <p><strong>Prediction:</strong> {{ result }}</p>
+    {% endif %}
+</div>
+{% endblock %}
