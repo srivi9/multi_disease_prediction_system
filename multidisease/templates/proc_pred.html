@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Training</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Buffering animation */
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Centering the button properly */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+   <script type="text/javascript">
+    function showButton() {
+        setTimeout(function() {
+            document.getElementById("viewAccuracyButton").style.display = "block";
+            document.getElementById("loader").style.display = "none"; 
+        }, 5000); // Show after 5 seconds
+    }
+</script>
+</head>
+<body onload="showButton()">
+<p>Your data is being processed...</p>
+
+<!-- Loader animation -->
+<div id="loader" class="loader"></div>
+
+<!-- Button wrapper for proper centering -->
+<div class="button-container">
+    <!-- Form to submit feature_explanations to the next route -->
+    <form action="{{ url_for('patient_routes.processedresults') }}" method="POST">
+        <!-- Pass the feature_explanations as hidden input -->
+        <button id="viewAccuracyButton" type="submit">View Results</button>
+    </form>
+</div>
+</body>
+</html>

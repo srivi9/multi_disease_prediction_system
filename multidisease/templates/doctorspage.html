@@ -3,8 +3,17 @@
 {% block body %}
 
 <div class="container">
-    <h1>Welcome</h1>
-    <form id = "auth-form" action="{{url_for('doctor_login')}}" method="post">
+    <h1>Doctor's login</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form id = "auth-form" action="{{url_for('doctor_routes.doctor_login')}}" method="post">
         <input type="text"
          name="username"
          placeholder="username"
@@ -22,11 +31,7 @@
         onclick="setActionForm('login')"
         />
 
-        <input type="button"
-        value="Register"
-         class="btn btn-register"
-       onclick="setActionForm('register')"
-       />
+       
        
     </form>
 </div>
@@ -35,12 +40,8 @@
     function setActionForm(action){
         let form = document.getElementById("auth-form");
         if (action === 'login'){
-            form.action = "{{url_for('doctor_login')}}";
+            form.action = "{{url_for('doctor_routes.doctor_login')}}";
             form.method="post"
-            form.submit();
-        } else if (action === 'register'){
-            form.action = "{{url_for('doctor_register')}}";
-            form.method = 'post';
             form.submit();
         }
     }

@@ -1,0 +1,31 @@
+
+### **These are different health factors related to the heart:**
+1. **Age** → How old the person is.  
+2. **Sex** → Whether the person is male or female.  
+3. **Chest Pain Type** → There are 4 types of chest pain (some are more serious than others).  
+4. **Resting Blood Pressure** → How strong the blood is pushing against the arteries when the person is resting.  
+5. **Cholesterol Level** → The amount of fat in the blood (measured in mg/dl). High levels can be bad for the heart.  
+6. **Fasting Blood Sugar > 120 mg/dl** → If the person’s blood sugar is more than 120 (after not eating for a while), it might mean they have diabetes.  
+7. **Resting ECG Result (0,1,2)** → A test that checks the heart's electrical activity. It can be:
+   - **0** = Normal  
+   - **1** = Some unusual activity (ST-T wave abnormality)  
+   - **2** = A sign of a heart problem (Left Ventricular Hypertrophy)  
+8. **Max Heart Rate Achieved** → The highest heart rate the person reached during a test.  
+9. **Exercise-Induced Angina** → If the person feels chest pain when they exercise.  
+10. **Oldpeak (ST Depression)** → How much the heart’s electrical activity changes during exercise. A higher number might suggest heart issues.  
+11. **Slope of ST Segment** → The shape of the heart’s activity curve after exercise.  
+12. **Number of Major Vessels (0-3) Colored by Fluoroscopy** → The number of main blood vessels seen in a heart scan.  
+13. **Thalassemia (Thal)** → A test result for a blood condition:  
+    - **0** = Normal  
+    - **1** = A permanent issue in the heart (fixed defect)  
+    - **2** = A heart problem that may get better (reversible defect)  
+
+---
+
+90/60 -120/80 - blood pressure
+below 200mg/dL(healthy)  
+fbs less than 100 mg/dL
+max heart rate should be high during exercise 180-200
+healthy patient- oldpeak 0 no depression in ST segment during exercise
+slop of peak - healthy patient most likely 0 (upward slope)
+Thalassemia - 0 is normal, 1 meands damage to heart tissue

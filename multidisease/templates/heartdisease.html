@@ -1,30 +1,254 @@
-{% extends "base.html" %}
 
 {% block body %}
-<div class="container">
-    
-    <!-- Prediction Form -->
-    <h3>Enter Patient Data for Prediction</h3>
-    <form action="{{ url_for('predict') }}" method="post">
-        <input type="text" name="feature1" placeholder="Age" required>
-        <input type="text" name="feature2" placeholder="Sex" required>
-        <input type="text" name="feature3" placeholder="Chest Pain Type" required>
-        <input type="text" name="feature4" placeholder="Resting Blood Pressure" required>
-        <input type="text" name="feature5" placeholder="Cholesterol" required>
-        <input type="text" name="feature6" placeholder="Fasting Blood Sugar" required>
-        <input type="text" name="feature7" placeholder="Resting ECG Results" required>
-        <input type="text" name="feature8" placeholder="Max Heart Rate Achieved" required>
-        <input type="text" name="feature9" placeholder="Exercise Induced Angina" required>
-        <input type="text" name="feature10" placeholder="ST Depression" required>
-        <input type="text" name="feature11" placeholder="Slope of Peak Exercise ST Segment" required>
-        <input type="text" name="feature12" placeholder="Number of Major Vessels Colored" required>
-        <input type="text" name="feature13" placeholder="Thalassemia" required>
-        <button type="submit">Predict</button>
-    </form>
+<style>
+/* Importing Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-    <!-- Display Prediction Result -->
-    {% if result %}
-        <p><strong>Prediction:</strong> {{ result }}</p>
-    {% endif %}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh; /* Allows scrolling if content is longer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #bac3cc, #88afda);
+}
+
+.container {
+  max-width: 600px; /* Reduced from 700px */
+  width: 90%; /* Responsive width */
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.container h3 {
+  font-size: 25px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.input-box {
+  width: calc(50% - 10px); /* Two fields per row */
+  margin-bottom: 15px;
+}
+
+.input-box span {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  font-size: 16px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.input-box input:focus,
+.input-box select:focus {
+  border-color: #9b59b6;
+  outline: none;
+}
+
+/* Submit Button */
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button input {
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #f0f4f8, #a7bcd3);
+  transition: all 0.3s ease;
+}
+
+.button input:hover {
+  background: linear-gradient(-135deg, #f0f4f8, #a7bcd3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-details {
+    flex-direction: column; /* Stack inputs on smaller screens */
+  }
+
+  .input-box {
+    width: 100%; /* Full width for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px; /* Reduce padding for very small screens */
+  }
+
+  .container h3 {
+    font-size: 20px; /* Smaller title */
+  }
+
+  .input-box input,
+  .input-box select {
+    height: 40px; /* Reduce input height */
+    font-size: 14px;
+  }
+
+  .button input {
+    height: 40px;
+    font-size: 16px;
+  }
+}
+</style>
+
+<div class="container">
+    <div class="title">Enter Your Data for Prediction</div>
+    <div class="content">
+        <form action="{{ url_for('heart_routes.predict_heart') }}" method="post">
+            <div class="user-details">
+
+                <div class="input-box">
+                    <span class="details">Age</span>
+                    <input type="number" name="age" id="age" placeholder="Enter Age" min = "29" max = "77" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Gender</span>
+                    <select name="gender" id="sex" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="1">Male</option>
+                        <option value="0">Female</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Chest Pain Type</span>
+                    <select name="chestpain">
+                    <option value="" disabled selected>Select Number</option>
+                        <option value="0">Typical Anginal</option>
+                        <option value="1"> Atypical angina</option>
+                        <option value="2">Non-anginal pain</option>
+                        <option value="3">Asymptomatic</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Resting Blood Pressure</span>
+                    <input type="number" name="resting-bloodpressure" placeholder="Enter in mmHg" min="94" max="200" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Cholesterol</span>
+                    <input type="number" name="cholestoral" placeholder="Enter in mg/dl" min="126" max="254" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Is your Fasting Blood Sugar greater than 120 mg/dl?</span>
+                    <select name="fasting-bloodsugar" required>
+                      <option value="" disabled selected>Select one</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                  </select>
+                </div>
+
+                <div class="input-box">
+                  <span class="details">ECG Result</label>
+                  <select name="resting-heartrate" placeholder="ECG Result" required>
+                      <option value="" disabled selected>Select ECG Result</option>
+                      <option value="0">Normal</option>
+                      <option value="1">ST-T Wave Abnormality</option>
+                      <option value="2">Left Ventricular Hypertrophy</option>
+                  </select>
+              </div>
+              
+
+                <div class="input-box">
+                    <span class="details">Max Heart Rate</span>
+                    <input type="number" name="max-heartrate" placeholder="Enter in bpm" min="71" max="202" required>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Exercise Induced Angina</span>
+                    <select name="exercise-induced-angina" id="angina" required>
+                        <option value="" disabled selected>Select Option</option>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Oldpeak</span>
+                  <input type="number" name="oldpeak" placeholder="ST Depression" min="0" max="6.2" step="0.1" required>
+              </div>
+              
+
+                <div class="input-box">
+                    <span class="details">Slope of Peak ST</span>
+                    <select name="slope" id="feature11" required>
+                        <option value="" disabled selected>Select Slope</option>
+                        <option value="0">Downsloping</option>
+                        <option value="1">Flat</option>
+                        <option value="2">Upsloping</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Major Vessels</span>
+                    <select name="number-of-major-vessels" id="feature12" required>
+                        <option value="" disabled selected>Select Number</option>
+                        <option value="0">0 </option>
+                        <option value="1">1 </option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Thalassemia</span>
+                    <select name="thalassemia" id="feature13" required>
+                        <option value="" disabled selected>Select Option</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="button">
+                <input type="submit" value="Predict">
+            </div>
+        </form>
+    </div>
 </div>
+
 {% endblock %}
