@@ -1,0 +1,156 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
+}
+
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b8c9db;
+    padding: 15px;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Carousel Styles */
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: 60px;
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+    animation: slide 12s infinite;
+}
+
+.slides img {
+    width: 100vw;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* Slide Animation */
+@keyframes slide {
+    0% { transform: translateX(0); }
+    33% { transform: translateX(-100vw); }
+    66% { transform: translateX(-200vw); }
+    100% { transform: translateX(0); }
+}
+
+/* Fade-In Effect for Text */
+.intro {
+    background: #f0f8ff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.text-container {
+    position: relative;
+}
+
+.fade-in {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #34495e;
+    opacity: 0;
+    animation: fadeIn 3s forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Popup Image Effect */
+.popup-image {
+    width: 60%;
+    max-width: 600px;
+    margin-top: 40px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: popupImage 4s forwards;
+}
+
+@keyframes popupImage {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Footer Styles */
+footer {
+    background-color: #a8bed6;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px); 
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* When the class is triggered, element becomes visible */
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Additional styles for landing page */
+.intro {
+    padding: 50px;
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+.text-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.popup-image {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* styles for the image when it becomes visible */
+.fade-in.visible .popup-image {
+    opacity: 1;
+}
+
+

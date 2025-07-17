@@ -1,0 +1,80 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Contribution Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results.css') }}">
+</head>
+
+{% block body %}
+{% if contributions %}
+    <form method="post" action="{{ url_for('diabetes_routes.diabetes_explanation') }}">
+        <div style="overflow-x: auto; max-width: 100%;" class="table-wrapper">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>PatientID</th>
+                        <th>Feature ID</th>
+                        <th>Feature</th>
+                        <th>Effect</th>
+                        <th>Contribution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contribution in contributions %}
+                        <tr>
+                            <td>{{contribution.PatientID}}</td>
+                            <td>{{contribution.effect_id}}</td>
+                            <td>{{ contribution.feature }}</td>
+                            <td>
+                                {% if contribution.effect == "increased" %}
+                                    <span style="color: red;">Increased</span>
+                                {% elif contribution.effect == "lowered" %}
+                                    <span style="color: green;">Lowered</span>
+                                {% else %}
+                                    <span style="color: orange;">No Effect</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ contribution.contribution }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    <input type="hidden" name="patient_id" value="{{ contributions[0].PatientID }}">
+                </tbody>
+            </table>
+            <div style="margin-top: 20px;">
+                <p><strong>System Predicted Result:</strong>
+                    {% if contributions[0].prediction_result == "positive" %}
+                        <span style="color: red;">Positive</span>
+                    {% elif contributions[0].prediction_result == "negative" %}
+                        <span style="color: green;">Negative</span>
+                    {% else %}
+                        <span style="color: orange;">To be determined</span>
+                    {% endif %}
+                </p>
+
+                <!-- Send Explanation to Patient Checkbox -->
+                <label>
+                    <input type="checkbox" name="send_explanation" value="yes">
+                    Send explanation to patient
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="margin-top: 15px;">
+                <button type="submit">Send Result</button>
+            </div>
+        </div>
+    </form>
+{% else %}
+    <p>No contribution data available.</p>
+{% endif %}
+{% endblock %}

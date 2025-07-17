@@ -1,0 +1,119 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results.css') }}">
+    <style>
+        body {
+            background-color: #e6f2ff; /* light blue */
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005f99;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" method="POST">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="{{ submission.age }}">
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="1" {% if submission.sex == 1 %}selected{% endif %}>Male</option>
+            <option value="0" {% if submission.sex == 0 %}selected{% endif %}>Female</option>
+        </select>
+
+        <label for="chest_pain_type">Chest Pain Type:</label>
+        <select id="chest_pain_type" name="chest_pain_type">
+            <option value="0" {% if submission.chest_pain_type == 0 %}selected{% endif %}>Typical Anginal</option>
+            <option value="1" {% if submission.chest_pain_type == 1 %}selected{% endif %}>Atypical Angina</option>
+            <option value="2" {% if submission.chest_pain_type == 2 %}selected{% endif %}>Non-anginal Pain</option>
+            <option value="3" {% if submission.chest_pain_type == 3 %}selected{% endif %}>Asymptomatic</option>
+        </select>
+
+        <label for="resting_bp">Resting BP:</label>
+        <input type="number" id="resting_bp" name="resting_bp" value="{{ submission.resting_bp }}">
+
+        <label for="cholesterol">Cholesterol:</label>
+        <input type="number" id="cholesterol" name="cholesterol" value="{{ submission.cholesterol }}">
+
+        <label for="fasting_blood_sugar">Fasting Blood Sugar:</label>
+        <select id="fasting_blood_sugar" name="fasting_blood_sugar">
+            <option value="0" {% if submission.fasting_blood_sugar == 0 %}selected{% endif %}>No</option>
+            <option value="1" {% if submission.fasting_blood_sugar == 1 %}selected{% endif %}>Yes</option>
+        </select>
+
+        <label for="ecg_result">ECG Result:</label>
+        <select id="ecg_result" name="ecg_result">
+            <option value="0" {% if submission.ecg_result == 0 %}selected{% endif %}>Normal</option>
+            <option value="1" {% if submission.ecg_result == 1 %}selected{% endif %}>ST-T Wave Abnormality</option>
+            <option value="2" {% if submission.ecg_result == 2 %}selected{% endif %}>Left Ventricular Hypertrophy</option>
+        </select>
+
+        <label for="heart_rate">Heart Rate:</label>
+        <input type="number" id="heart_rate" name="heart_rate" value="{{ submission.heart_rate }}">
+
+        <label for="angina">Angina:</label>
+        <select id="angina" name="angina">
+            <option value="0" {% if submission.angina == 0 %}selected{% endif %}>No</option>
+            <option value="1" {% if submission.angina == 1 %}selected{% endif %}>Yes</option>
+        </select>
+
+        <label for="old_peak">Old Peak:</label>
+        <input type="number" id="old_peak" name="old_peak" value="{{ submission.old_peak }}">
+
+        <label for="slope">Slope:</label>
+        <select id="slope" name="slope">
+            <option value="0" {% if submission.slope == 0 %}selected{% endif %}>Downsloping</option>
+            <option value="1" {% if submission.slope == 1 %}selected{% endif %}>Flat</option>
+            <option value="2" {% if submission.slope == 2 %}selected{% endif %}>Upsloping</option>
+        </select>
+
+        <label for="num_major_vessels">Major Vessels:</label>
+        <input type="number" id="num_major_vessels" name="num_major_vessels" value="{{ submission.num_major_vessels }}">
+
+        <label for="thalassemia">Thalassemia:</label>
+        <input type="text" id="thalassemia" name="thalassemia" value="{{ submission.thalassemia }}">
+
+        <button type="submit">Update Submission</button>
+    </form>
+</body>

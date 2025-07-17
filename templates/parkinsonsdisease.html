@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #bac3cc, #88afda);
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.container h3 {
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Grid layout for larger screens */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 15px;
+}
+
+/* Single-column layout for smaller screens */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+
+/* Input styles */
+.input-box {
+  width: 100%;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-box input:focus,
+.input-box select:focus {
+  border-color: #9b59b6;
+  outline: none;
+}
+
+/* Button */
+.button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #bac3cc, #88afda);
+  transition: 0.3s;
+}
+
+.button button:hover {
+  background: linear-gradient(-135deg, #bac3cc, #88afda);
+}
+</style>
+
+<div class="container">
+    <h3>Enter Patient Data for Prediction</h3>
+    <form action="{{ url_for('parkinsons_routes.predict_parkinsons') }}" method="post">
+        
+        <!-- Personal Information Section -->
+        <h4>Personal Information</h4>
+        <div class="form-grid">
+            <div class="input-box"><input type="text" name="Age" placeholder="Age (50-90)" required></div>
+            <div class="input-box">
+                <select name="Gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select>
+            </div>
+            <div class="input-box"><input type="number" name="BMI" placeholder="BMI" min="15" max="40" required></div>
+            <div class="input-box"><input type="number" name="PhysicalActivity" placeholder="Physical Activity (in hrs)" min="0" max="10" required></div>
+            <div class="input-box"><input type="number" name="DietQuality" placeholder="Diet Quality" min="0" max="10" required></div>
+            <div class="input-box"><input type="number" name="SleepQuality" placeholder="Sleep Quality (in hrs)" min="0" max="10" required></div>
+        </div>
+
+        <!-- Medical History Section -->
+        <h4>Medical History</h4>
+        <div class="form-grid">
+            <div class="input-box">
+                <select name="FamilyHistoryParkinsons" required>
+                    <option value="" disabled selected>Family History of Parkinson's</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="TraumaticBrainInjury" required>
+                    <option value="" disabled selected>History of Traumatic Brain Injury</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Hypertension" required>
+                    <option value="" disabled selected>Hypertension</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Diabetes" required>
+                    <option value="" disabled selected>Presence of Diabetes</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Depression" required>
+                    <option value="" disabled selected>Presence of Depression</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Stroke" required>
+                    <option value="" disabled selected>Presence of Stroke</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Symptoms Section -->
+        <h4>Symptoms</h4>
+        <div class="form-grid">
+            <div class="input-box">
+                <select name="Tremor" required>
+                    <option value="" disabled selected>Presence of Tremor</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Rigidity" required>
+                    <option value="" disabled selected>Presence of Rigidity</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="SpeechProblems" required>
+                    <option value="" disabled selected>Presence of Speech Problems</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="SleepDisorders" required>
+                    <option value="" disabled selected>Presence of Sleep Disorders</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <select name="Constipation" required>
+                    <option value="" disabled selected>Presence of Constipation</option>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button">
+            <button type="submit">Predict</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

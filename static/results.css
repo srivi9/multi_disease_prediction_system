@@ -1,0 +1,135 @@
+/* Wrapper to enable horizontal scrolling on small screens */
+.table-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 100%;
+    margin: 20px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* General table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    margin-top: 100px;
+    background-color: #06326b; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+  }
+  
+  /* Table headers */
+  th {
+    background: #788ea5; 
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size:20px;
+  }
+  
+  /* Table body */
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    font-size: 20px;
+  }
+  
+  th, td {
+    padding: 8px 12px;
+  }
+  
+  /* Alternate row colors  */
+  tbody tr:nth-child(odd) {
+    background: #e3f2fd; 
+  }
+  
+  tbody tr:nth-child(even) {
+    background: #ffffff;
+  }
+  
+  /* Hover effect */
+  tbody tr:hover {
+    background: #d0ebff; 
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Diagnosis text coloring */
+  td span {
+    font-weight: bold;
+  }
+  
+  td span[style="color: red;"] {
+    color: #dc3545 !important;
+  }
+  
+  td span[style="color: green;"] {
+    color: #28a745 !important;
+  }
+  
+  td span[style="color: orange;"] {
+    color: #ffc107 !important;
+  }
+  
+  /* Styling for radio buttons */
+  td input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  /* Save Button Styling */
+  button {
+    background: #007bff; 
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-top: 15px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+    transition: 0.3s ease-in-out;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  /* Responsive Design  */
+  @media (max-width: 768px) {
+    /* table scrolls */
+    .table-wrapper {
+        overflow-x: auto;
+    }
+    
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    table {
+        font-size: 30px;
+    }
+    
+    th, td {
+        padding: 4px;
+        white-space: nowrap;
+    }
+  }
+  

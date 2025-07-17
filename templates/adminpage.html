@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Admin's login</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form id="login-form" action="{{ url_for('admin_routes.admin_login') }}" method="post">
+        <input type="text"
+               name="username"
+               placeholder="username"
+               class="input-field" />
+
+        <input type="password"
+               name="password"
+               placeholder="password"
+               class="input-field" />
+
+        <input type="submit"
+               value="Login"
+               class="btn btn-login"
+               onclick="setActionForm('login')" />
+    </form>
+    <!--<div class="container">
+        <h1>Please Register down below</h1>
+        <form id="register-form" action="{{ url_for('admin_routes.admin_register') }}" method="post">
+            <input type="text"
+                   name="username"
+                   placeholder="username"
+                   class="input-field" />
+
+            <input type="password"
+                   name="password"
+                   placeholder="password"
+                   class="input-field" />
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <input type="submit"
+                   value="Register"
+                   class="btn btn-register" />
+        </form>-->
+    </div>
+</div>
+
+<script>
+    function setActionForm(action) {
+        let form = document.getElementById(action + "-form");
+        if (action === 'login') {
+            form.submit();
+        } else if (action === 'register') {
+            form.submit();
+        }
+    }
+</script>
+
+{% endblock %}
