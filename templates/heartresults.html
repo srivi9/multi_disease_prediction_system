@@ -1,0 +1,148 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results.css') }}">
+  </head>
+  
+  {% block body %}
+  {% if hearts %}
+  <form method="post" action="{{ url_for('heart_routes.update_diagnosis') }}">
+    <div style="overflow-x: auto; max-width: 100%;" class="table-wrapper">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>PredictionID</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Chest Pain Type</th>
+                    <th>Resting BP</th>
+                    <th>Cholesterol</th>
+                    <th>Fasting Blood Sugar</th>
+                    <th>ECG Result</th>
+                    <th>Heart Rate</th>
+                    <th>Angina</th>
+                    <th>Old Peak</th>
+                    <th>Slope</th>
+                    <th>Major Vessels</th>
+                    <th>Thalassemia</th>
+                    <th>Diagnosis</th>
+                    <th>Final Diagnosis</th>
+                    <th>Send to Patient</th>
+                    <th>PatientID</th>
+                    <th>Patient Name</th>
+                    <th>Save to Dataset</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for heart in hearts %}
+                <tr>
+                    <td>{{ heart.id }}</td>
+                    <td>{{ heart.age }}</td>
+                    <td>{{ "Male" if heart.sex == 1 else "Female" }}</td>
+                    <td>
+                        {% if heart.chest_pain_type == 0 %}
+                            Typical Anginal
+                        {% elif heart.chest_pain_type == 1 %}
+                            Atypical Angina
+                        {% elif heart.chest_pain_type == 2 %}
+                            Non-anginal pain
+                        {% elif heart.chest_pain_type == 3 %}
+                            Asymptomatic
+                        {% else %}
+                            No data available
+                        {% endif %}
+                    </td>
+                    <td>{{ heart.resting_bp }}</td>
+                    <td>{{ heart.cholesterol }}</td>
+                    <td>{{ "No" if heart.fasting_blood_sugar == 0 else "Yes" }}</td>
+                    <td>
+                        {% if heart.ecg_result == 0 %}
+                            Normal
+                        {% elif heart.ecg_result == 1 %}
+                            ST-T Wave Abnormality
+                        {% elif heart.ecg_result == 2 %}
+                            Left Ventricular Hypertrophy
+                        {% else %}
+                            No data available
+                        {% endif %}
+                    </td>
+                    <td>{{ heart.heart_rate }}</td>
+                    <td>
+                        {% if heart.angina == 0 %}
+                            No
+                        {% elif heart.angina == 1 %}
+                            Yes
+                        {% else %}
+                            No data available
+                        {% endif %}
+                    </td>
+                    <td>{{ heart.old_peak }}</td>
+                    <td>
+                        {% if heart.slope == 0 %}
+                            Downsloping
+                        {% elif heart.slope == 1 %}
+                            Flat
+                        {% elif heart.slope == 2 %}
+                            Upsloping
+                        {% else %}
+                            No data available
+                        {% endif %}
+                    </td>
+                    <td>{{ heart.num_major_vessels }}</td>
+                    <td>{{ heart.thalassemia }}</td>
+                    <td>
+                        {% if heart.target == 1 %}
+                            <span style="color: red; display: block;">Positive</span>
+                        {% elif heart.target == 0 %}
+                            <span style="color: green; display: block;">Negative</span>
+                        {% else %}
+                            <span style="color: orange; display: block;">To be determined</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <label><input type="radio" name="target_{{ heart.id }}" value="1" {% if heart.target == 1 %}checked{% endif %}> Positive</label>
+                        <label><input type="radio" name="target_{{ heart.id }}" value="0" {% if heart.target == 0 %}checked{% endif %}> Negative</label>
+                        <label><input type="radio" name="target_{{ heart.id }}" value="null" {% if heart.target is none %}checked{% endif %}> To be determined</label>
+  
+                        <!-- Hidden fields -->
+                        <input type="hidden" name="heart_id_{{ heart.id }}" value="{{ heart.id }}">
+                        <input type="hidden" name="patient_id_{{ heart.id }}" value="{{ heart.PatientID }}">
+                        <input type="hidden" name="patient_name_{{ heart.id }}" value="{{ heart.PatientName }}">
+                        <input type="hidden" name="age_{{ heart.id }}" value="{{ heart.age }}">
+                        <input type="hidden" name="sex_{{ heart.id }}" value="{{ heart.sex }}">
+                        <input type="hidden" name="chest_pain_type_{{ heart.id }}" value="{{ heart.chest_pain_type }}">
+                        <input type="hidden" name="resting_bp_{{ heart.id }}" value="{{ heart.resting_bp }}">
+                        <input type="hidden" name="cholesterol_{{ heart.id }}" value="{{ heart.cholesterol }}">
+                        <input type="hidden" name="fasting_blood_sugar_{{ heart.id }}" value="{{ heart.fasting_blood_sugar }}">
+                        <input type="hidden" name="ecg_result_{{ heart.id }}" value="{{ heart.ecg_result }}">
+                        <input type="hidden" name="heart_rate_{{ heart.id }}" value="{{ heart.heart_rate }}">
+                        <input type="hidden" name="angina_{{ heart.id }}" value="{{ heart.angina }}">
+                        <input type="hidden" name="old_peak_{{ heart.id }}" value="{{ heart.old_peak }}">
+                        <input type="hidden" name="slope_{{ heart.id }}" value="{{ heart.slope }}">
+                        <input type="hidden" name="num_major_vessels_{{ heart.id }}" value="{{ heart.num_major_vessels }}">
+                        <input type="hidden" name="thalassemia_{{ heart.id }}" value="{{ heart.thalassemia }}">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="send_to_patient_{{ heart.id }}" value="on">
+                    </td>
+                    <td>{{ heart.PatientID }}</td>
+                    <td>{{ heart.PatientName }}</td>
+                    <td>
+                        <input type="checkbox" name="save_to_dataset_{{ heart.id }}" value="on">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" name="save_to_dataset" value="true">
+    <button type="submit">Save Data</button>
+  </form>
+  {% else %}
+  <p>No heart disease data available.</p>
+  {% endif %}
+  {% endblock %}
+  
+  

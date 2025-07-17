@@ -1,0 +1,45 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkinson Disease Data</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results.css') }}">
+</head>
+{% block body %}
+<!-- all_patient_results.html -->
+{% if patients %}
+    <table>
+        <thead>
+            <tr>
+                <th>Prediction ID</th>
+                <th>Patient ID</th>
+                <th>Patient Name</th>
+                <th>Disease Type</th>
+                <th>System Predicted Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+                <tr>
+                    <td>{{patient.prediction_id}}</td>
+                    <td>{{ patient.patient_id }}</td>
+                    <td>{{ patient.patient_username }}</td>
+                    <td>{{ patient.disease_type }}</td>
+                    <td>{{ patient.prediction_result }}</td>
+                    <td>
+                        <!-- View Symptoms Button -->
+                        <form action="{{ url_for('parkinsons_routes.view_all_parkinsons_results', patient_id=patient.patient_id, prediction_id=patient.prediction_id) }}" method="POST">
+                            <button type="submit" class="btn btn-secondary">View symptoms</button>
+                        </form>
+
+                        <a href="{{ url_for('parkinsons_routes.view_parkinsons_contributions', patient_id=patient.patient_id,prediction_id=patient.prediction_id)}}"><button>View Contributions</button></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No patient data available.</p>
+{% endif %}
+
+
+{% endblock %}

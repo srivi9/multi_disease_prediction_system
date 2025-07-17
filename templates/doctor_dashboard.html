@@ -1,0 +1,334 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/* General Styles */
+body {
+    background-color: #e6edf7; 
+    font-family: "Roboto", sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #a7bcd3 !important; 
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.navbar .btn {
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Header */
+.header {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    margin-bottom: 50px; 
+}
+
+/* Main Content */
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/* Logout Button */
+.btn-logout {
+    background-color: #0c5663;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-heart, .btn-diabetes, .btn-parkinsons {
+    background-color: #546d85; 
+    color: white; 
+    font-weight: bold; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    border: none; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    transition: background-color 0.3s; 
+}
+
+/* Card Style */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: #546d85;
+    color: white;
+    font-size: 18px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+/* Responsive Columns */
+@media (min-width: 768px) {
+    .row-cols-md-3 .col {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+    }
+}
+
+
+        /* Bubbles Animation */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1; 
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            pointer-events: none; 
+        }
+
+        .bubbles span {
+            position: absolute;
+            display: block;
+            width: 40px;
+            height: 40px;
+            background: rgba(80, 247, 102, 0.5); 
+            bottom: -100px;
+            border-radius: 50%;
+            animation: bubble 20s linear infinite;
+            box-shadow: 0 0 10px rgba(173, 216, 230, 0.7); 
+        }
+
+        .bubbles span:nth-child(1) {
+            left: 10%;
+            width: 40px;
+            height: 40px;
+            animation-duration: 15s;
+            animation-delay: 0s;
+        }
+        .bubbles span:nth-child(2) {
+            left: 20%;
+            width: 20px;
+            height: 20px;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        .bubbles span:nth-child(3) {
+            left: 30%;
+            width: 30px;
+            height: 30px;
+            animation-duration: 14s;
+            animation-delay: 4s;
+        }
+        .bubbles span:nth-child(4) {
+            left: 40%;
+            width: 25px;
+            height: 25px;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+        .bubbles span:nth-child(5) {
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            animation-duration: 18s;
+            animation-delay: 3s;
+        }
+        .bubbles span:nth-child(6) {
+            left: 60%;
+            width: 15px;
+            height: 15px;
+            animation-duration: 16s;
+            animation-delay: 5s;
+        }
+        .bubbles span:nth-child(7) {
+            left: 70%;
+            width: 35px;
+            height: 35px;
+            animation-duration: 13s;
+            animation-delay: 2s;
+        }
+        .bubbles span:nth-child(8) {
+            left: 80%;
+            width: 25px;
+            height: 25px;
+            animation-duration: 20s;
+            animation-delay: 0s;
+        }
+        .bubbles span:nth-child(9) {
+            left: 90%;
+            width: 30px;
+            height: 30px;
+            animation-duration: 11s;
+            animation-delay: 1s;
+        }
+        .bubbles span:nth-child(10) {
+            left: 95%;
+            width: 40px;
+            height: 40px;
+            animation-duration: 17s;
+            animation-delay: 4s;
+        }
+
+        @keyframes bubble {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6; 
+            }
+            100% {
+                transform: translateY(-1000px) scale(1.2);
+                opacity: 0;
+            }
+        }
+</style>
+
+{% block body %}
+
+<div class="bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+<!-- Navbar -->
+<div class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Doctor's Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+        </div>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+   
+    
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mt-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+ <!-- Three Columns for Doctor's Dashboard -->
+<div class="row row-cols-md-3">
+    <!-- Column 1: Patient Overview -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Patient Overview
+            </div>
+            <div class="card-body">
+                <p>Quick stats on your patients. See the total number of patients, recent diagnoses, or any urgent cases.</p>
+                <ul>
+                    <li>Total Patients: {{number_of_patients}}</li>
+                    <li>Heart Disease Cases: {{ heart_disease_count }}</li>
+                    <li>Diabetes Cases: {{diabetes_disease_count}}</li>
+                    <li>Parkinson's Disease Cases: {{ parkinsons_prediction_count}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Column 2: Recent Alerts -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Latest Cases
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>Urgent Heart Patient</strong>: John Doe, 55, risk of heart attack.</li>
+                    <li><strong>Diabetes Medication Alert</strong>: Jane Smith, 42, new diabetes diagnosis.</li>
+                    <li><strong>Parkinson’s Medication Review</strong>: Michael Brown, 60, needs a follow-up.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3rd column Column: Manage Users Section -->
+    <div class="col-md-4" style="background-color: white; padding: 10px;">
+        <!-- Heading: Available actions -->
+        <h3 class="text-center mb-4">Statistics</h3>
+
+        <form id="auth-form" method="post">
+            <input type="hidden" id="form-action" name="form_action">
+            <a href="{{ url_for('heart_routes.view_all_patient_results') }}" class="btn btn-primary mb-3 w-100">Heart Disease</a>
+            <a href="{{ url_for('diabetes_routes.view_diabete_patient_results') }}" class="btn btn-secondary mb-3 w-100">Diabetes</a>
+            <a href="{{ url_for('parkinsons_routes.view_parkinsons_patient_results') }}" class="btn btn-success w-100">Parkinson's Disease</a>
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+

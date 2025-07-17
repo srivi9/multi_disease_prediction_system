@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Please Register down below</h1>
+    <form id = "auth-form" action="{{url_for('patient_routes.patient_register')}}" method="post">
+        <input type="text"
+        name="firstname"
+        placeholder="First Name"
+        class="input-field"
+        >
+
+        <input type="text"
+        name="lastname"
+        placeholder="Last Name"
+        class="input-field"
+        >
+        
+        <input type="text"
+        name ="age"
+        placeholder="Age"
+        class= "input-field"
+        >
+
+        <select name="gender" id="gender" required  class="input-field">
+            <option value="" disabled selected>Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+
+
+        <input type="text"
+         name="username"
+         placeholder="username"
+         class="input-field"
+         />
+
+         <input type="email"
+         name="email"
+         placeholder="email"
+         class="input-field"
+         />
+
+
+        <input type="password"
+         name="password"
+         placeholder="password"
+         class="input-field"
+         />
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+                 {% for message in messages %}
+                     {{ message }}
+                 {% endfor %}
+         {% endif %}
+     {% endwith %}
+     
+       
+        <input type="button"
+        value="Register"
+         class="btn btn-register"
+       onclick="setActionForm('register')"
+       />
+    </form>
+</div>
+
+<script>
+    function setActionForm(action){
+        let form = document.getElementById("auth-form");
+         if (action === 'register'){
+            form.action = "{{url_for('patient_routes.patient_register')}}";
+            form.method = 'post';
+            form.submit();
+        }
+    }
+</script>
+{% endblock %}

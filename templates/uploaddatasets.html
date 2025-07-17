@@ -1,0 +1,235 @@
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Datasets</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #7ca2c9;
+            font-family: "Arial", sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .dataset-upload {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .dataset-upload:hover {
+            transform: translateY(-5px);
+        }
+        .dataset-upload h4 {
+            color: #007bff;
+        }
+        .btn-upload {
+            margin-top: 10px;
+            width: 100%;
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-upload:hover {
+            background-color: #0056b3;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Upload Your Dataset</h2>
+        
+        <div class="row">
+            <!-- Heart Disease Dataset -->
+            <div class="col-md-4">
+                <div class="dataset-upload">
+                    <h4>Heart Disease Dataset</h4>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="file" name="file" id="fileInput" accept=".csv" required>
+                        <button type="button" class="btn btn-primary btn-upload" onclick="uploadDataset()">Upload Dataset</button>
+                    </form>
+                    <div id="feature-selection" class="mt-3" style="display: none;">
+                        <h5>Select Features:</h5>
+                        <form id="featureForm" action="{{ url_for('heart_routes.train_model') }}" method="post">
+                            <div id="featureCheckboxes"></div>
+                            <button type="submit" class="btn btn-success mt-2">Train Model</button>
+                        </form>
+
+                        <form id="featureForm" action="{{ url_for('heart_routes.lasso_heart') }}" method="post">
+                            <div id="featureCheckboxes"></div>
+                            <button type="submit" class="btn btn-success mt-2">Automatic Feature Selection</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Diabetes Disease Dataset -->
+                <div class="col-md-4">
+                    <div class="dataset-upload">
+                        <h4>Diabetes Dataset</h4>
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <input type="file" name="file" id="DiabetesfileInput" accept=".csv" required>
+                            <button type="button" class="btn btn-primary btn-upload" onclick="uploadDiabetesDataset()">Upload Dataset</button>
+                        </form>
+                        <div id="diabetes-feature-selection" class="mt-3" style="display: none;">
+                            <h5>Select Features:</h5>
+                            <form id="diabetesFeatureForm" action="{{ url_for('diabetes_routes.train_model') }}" method="post">
+                                <div id="diabetesFeatureCheckboxes"></div>
+                                <button type="submit" class="btn btn-success mt-2">Train Model</button>
+                            </form>
+
+                            <form id="featureForm" action="{{ url_for('diabetes_routes.train_lasso') }}" method="post">
+                                <div id="featureCheckboxes"></div>
+                                <button type="submit" class="btn btn-success mt-2">Automatic Feature Selection</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+
+              
+                
+
+        </div>
+
+              <!-- Parkinsons Disease Dataset -->
+              <div class="col-md-4">
+                <div class="dataset-upload">
+                    <h4>Parkinsons Dataset</h4>
+                    <form id="uploadParkinsonsForm" enctype="multipart/form-data">
+                        <input type="file" name="file" id="ParkinsonsfileInput" accept=".csv" required>
+                        <button type="button" class="btn btn-primary btn-upload" onclick="uploadParkinsonsDataset()">Upload Dataset</button>
+                    </form>
+                    <div id="parkinsons-feature-selection" class="mt-3" style="display: none;">
+                        <h5>Select Features:</h5>
+                        <form id="ParkinsonsFeatureForm" action="{{ url_for('parkinsons_routes.train_model') }}" method="post">
+                            <div id="ParkinsonsFeatureCheckboxes"></div>
+                            <button type="submit" class="btn btn-success mt-2">Train Model</button>
+                        </form>
+                        <form id="ParkinsonsFeatureForm" action="{{ url_for('parkinsons_routes.park_lasso') }}" method="post">
+                            <div id="ParkinsonsFeatureCheckboxes"></div>
+                            <button type="submit" class="btn btn-success mt-2">Automatic Feature selection</button>
+                        </form>
+
+                      
+                    </div>
+                    
+                </div>
+    </div>
+
+    
+</body>
+</html>
+
+
+
+<!-- Display Prediction Result -->
+{% if result %}
+    <p><strong>Prediction:</strong> {{ result }}</p>
+{% endif %}
+
+{% endblock %}
+<script>
+    function uploadDataset() {
+        let formData = new FormData();
+        formData.append("file", document.getElementById("fileInput").files[0]);
+
+        fetch("{{ url_for('heart_routes.upload_heart_dataset') }}", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let checkboxesDiv = document.getElementById("featureCheckboxes");
+                checkboxesDiv.innerHTML = ""; // Clear previous checkboxes
+
+                data.columns.forEach(col => {
+                    if (col !== "target") {  // Exclude 'target' from selection
+                        let checkbox = `<label><input type="checkbox" name="features" value="${col}"> ${col}</label><br>`;
+                        checkboxesDiv.innerHTML += checkbox;
+                    }
+                });
+
+                document.getElementById("feature-selection").style.display = "block";
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    function uploadDiabetesDataset() {
+    let formData = new FormData();
+    formData.append("file", document.getElementById("DiabetesfileInput").files[0]);
+
+    fetch("{{ url_for('diabetes_routes.upload_diabetes_dataset') }}", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            let checkboxesDiv = document.getElementById("diabetesFeatureCheckboxes");
+            checkboxesDiv.innerHTML = ""; // Clear previous checkboxes
+
+            data.columns.forEach(col => {
+                if (col !== "Outcome") {  
+                    let checkbox = `<label><input type="checkbox" name="features" value="${col}"> ${col}</label><br>`;
+                    checkboxesDiv.innerHTML += checkbox;
+                }
+            });
+
+            document.getElementById("diabetes-feature-selection").style.display = "block";
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+
+function uploadParkinsonsDataset() {
+    let formData = new FormData();
+    formData.append("file", document.getElementById("ParkinsonsfileInput").files[0]);
+
+    fetch("{{ url_for('parkinsons_routes.upload_parkinsons_dataset') }}", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            let checkboxesDiv = document.getElementById("ParkinsonsFeatureCheckboxes");
+            checkboxesDiv.innerHTML = ""; // Clear previous checkboxes
+
+            data.columns.forEach(col => {
+                if (col !== "Diagnosis") {  
+                    let checkbox = `<label><input type="checkbox" name="features" value="${col}"> ${col}</label><br>`;
+                    checkboxesDiv.innerHTML += checkbox;
+                }
+            });
+
+            document.getElementById("parkinsons-feature-selection").style.display = "block";
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+
+</script>

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='resulttable.css') }}">
+
+<div class="container">
+    <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
+    <hr>
+
+
+    <h2>Your results will be available for you to review within the next 5 working days. Thank you for your patience.</h2>
+</div>
+
+{% endblock %}
